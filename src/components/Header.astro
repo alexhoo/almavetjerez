@@ -1,0 +1,62 @@
+---
+import { site } from "~/data/site";
+import { MobileNav } from "./react/MobileNav";
+
+const navItems = site.nav.map((item) => ({ label: item.label, href: item.href }));
+---
+
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200/60">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-4">
+
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2 flex-shrink-0 group" aria-label="Almavet Jerez — Inicio">
+      <span class="flex items-center justify-center w-8 h-8 rounded-full bg-brand-blue text-white">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <!-- Paw print: 4 toe pads + main pad -->
+          <circle cx="7" cy="8" r="2"/>
+          <circle cx="17" cy="8" r="2"/>
+          <circle cx="5" cy="13" r="2"/>
+          <circle cx="19" cy="13" r="2"/>
+          <path d="M12 21c-4 0-5-3-5-5 0-2 1.5-4 5-4s5 2 5 4c0 2-1 5-5 5z"/>
+        </svg>
+      </span>
+      <div class="flex flex-col leading-none">
+        <span class="text-sm font-bold text-brand-navy tracking-tight">
+          ALMAVET <span class="text-brand-blue">JEREZ</span>
+        </span>
+        <span class="text-[10px] font-medium text-brand-slate uppercase tracking-widest">{site.tagline}</span>
+      </div>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav aria-label="Navegación principal" class="hidden md:flex items-center gap-8">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class="text-sm font-medium text-brand-slate hover:text-brand-navy transition-colors"
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Desktop CTA + Mobile menu -->
+    <div class="flex items-center gap-3">
+      <a
+        href={site.hero.primaryCta.href}
+        class="hidden md:inline-flex items-center px-5 py-2 rounded-full bg-brand-blue text-white text-sm font-semibold hover:bg-brand-blue-600 transition-colors"
+      >
+        {site.hero.primaryCta.label}
+      </a>
+
+      <!-- Mobile nav island (React) -->
+      <MobileNav
+        client:load
+        navItems={navItems}
+        ctaHref={site.hero.primaryCta.href}
+        ctaLabel={site.hero.primaryCta.label}
+      />
+    </div>
+
+  </div>
+</header>
