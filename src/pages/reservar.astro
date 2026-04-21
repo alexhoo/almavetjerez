@@ -1,0 +1,21 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import { AppointmentForm } from "~/components/react/AppointmentForm";
+---
+
+<BaseLayout
+  title="Reservar cita — Almavet Jerez"
+  description="Solicita tu cita en Almavet Jerez. Rellena el formulario y te contactaremos en menos de 24h para confirmar fecha y hora."
+>
+  <section class="max-w-2xl mx-auto px-6 py-16 md:py-24">
+    <div class="flex flex-col gap-3 mb-10">
+      <h1 class="text-3xl md:text-4xl font-bold text-brand-navy">
+        Reserva tu cita
+      </h1>
+      <p class="text-base text-brand-slate leading-relaxed">
+        Déjanos tus datos y el motivo de la visita. Te contactaremos en menos de 24h para confirmar fecha y hora.
+      </p>
+    </div>
+    <AppointmentForm client:load />
+  </section>
+</BaseLayout>

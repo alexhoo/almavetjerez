@@ -1,0 +1,35 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import Icon from "~/components/Icon.astro";
+import { site } from "~/data/site";
+---
+
+<BaseLayout
+  title="Solicitud recibida — Almavet Jerez"
+  description="Hemos recibido tu solicitud de cita. Nos pondremos en contacto contigo en breve."
+  noindex={true}
+>
+  <section class="max-w-xl mx-auto px-6 py-24 text-center flex flex-col items-center gap-6">
+    <div class="flex items-center justify-center w-16 h-16 rounded-full bg-green-100 text-green-600">
+      <Icon name="check-circle" class="w-8 h-8" />
+    </div>
+    <h1 class="text-3xl font-bold text-brand-navy">
+      ¡Solicitud recibida!
+    </h1>
+    <p class="text-base text-brand-slate leading-relaxed max-w-md">
+      Hemos recibido tu solicitud de cita. Te contactaremos en menos de 24h al teléfono que nos has dejado para confirmar fecha y hora.
+    </p>
+    <p class="text-sm text-brand-slate">
+      ¿Necesitas ayuda urgente? Llámanos al{" "}
+      <a href={`tel:${site.phoneTel}`} class="text-brand-blue font-semibold hover:underline">
+        {site.phone}
+      </a>
+    </p>
+    <a
+      href="/"
+      class="inline-flex items-center px-6 py-3 rounded-xl bg-brand-blue text-white font-semibold text-sm hover:bg-brand-blue-600 transition-colors"
+    >
+      Volver al inicio
+    </a>
+  </section>
+</BaseLayout>
