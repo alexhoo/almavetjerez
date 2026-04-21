@@ -1,0 +1,97 @@
+---
+import { site } from "~/data/site";
+import Icon from "./Icon.astro";
+---
+
+<footer role="contentinfo" class="bg-brand-navy text-white">
+  <div class="max-w-6xl mx-auto px-6 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 pb-10 border-b border-white/10">
+
+      <!-- Col 1: Brand -->
+      <div class="flex flex-col gap-4">
+        <div class="flex items-center gap-2">
+          <span class="flex items-center justify-center w-8 h-8 rounded-full bg-brand-blue text-white">
+            <Icon name="paw" class="w-4 h-4" />
+          </span>
+          <div class="flex flex-col leading-none">
+            <span class="text-sm font-bold tracking-tight">
+              ALMAVET <span class="text-brand-blue">JEREZ</span>
+            </span>
+            <span class="text-[10px] font-medium text-white/60 uppercase tracking-widest">{site.tagline}</span>
+          </div>
+        </div>
+        <p class="text-sm text-white/60 leading-relaxed max-w-xs">
+          {site.footer.description}
+        </p>
+      </div>
+
+      <!-- Col 2: Quick links -->
+      <div class="flex flex-col gap-4">
+        <h3 class="font-semibold text-sm uppercase tracking-wider text-white/80">
+          Enlaces Rápidos
+        </h3>
+        <ul class="flex flex-col gap-2">
+          {site.footer.links.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="text-sm text-white/60 hover:text-white transition-colors"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Col 3: Contact -->
+      <div class="flex flex-col gap-4">
+        <h3 class="font-semibold text-sm uppercase tracking-wider text-white/80">
+          Contacto
+        </h3>
+        <ul class="flex flex-col gap-3">
+          <li class="flex items-center gap-3 text-sm text-white/60">
+            <Icon name="phone" class="w-4 h-4 flex-shrink-0 text-brand-blue" />
+            <a href={`tel:${site.phoneTel}`} class="hover:text-white transition-colors">
+              {site.phone}
+            </a>
+          </li>
+          <li class="flex items-center gap-3 text-sm text-white/60">
+            <Icon name="mail" class="w-4 h-4 flex-shrink-0 text-brand-blue" />
+            <a href={`mailto:${site.email}`} class="hover:text-white transition-colors">
+              {site.email}
+            </a>
+          </li>
+        </ul>
+        <!-- Social -->
+        <div class="flex gap-3 pt-1">
+          <a
+            href={site.social.facebook}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Almavet Jerez en Facebook"
+            class="flex items-center justify-center w-9 h-9 rounded-full bg-white/10 text-white/70 hover:bg-brand-blue hover:text-white transition-colors"
+          >
+            <Icon name="facebook" class="w-4 h-4" />
+          </a>
+          <a
+            href={site.social.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Almavet Jerez en Instagram"
+            class="flex items-center justify-center w-9 h-9 rounded-full bg-white/10 text-white/70 hover:bg-brand-blue hover:text-white transition-colors"
+          >
+            <Icon name="instagram" class="w-4 h-4" />
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/40">
+      <p>{site.footer.copyright}</p>
+      <p>{site.footer.tagline}</p>
+    </div>
+  </div>
+</footer>
