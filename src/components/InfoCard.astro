@@ -1,0 +1,22 @@
+---
+import Icon from "./Icon.astro";
+import type { IconName } from "./Icon.astro";
+
+interface Props {
+  icon: IconName;
+  title: string;
+}
+const { icon, title } = Astro.props;
+---
+
+<div class="flex gap-4">
+  <div class="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-brand-sky text-brand-blue">
+    <Icon name={icon} class="w-5 h-5" />
+  </div>
+  <div class="flex flex-col gap-1">
+    <h3 class="font-semibold text-brand-navy text-sm">{title}</h3>
+    <div class="text-sm text-brand-slate leading-relaxed">
+      <slot />
+    </div>
+  </div>
+</div>
