@@ -40,7 +40,7 @@ export const site = {
     primaryCta: { label: "Pedir Cita Online", href: "/reservar" },
     secondaryCta: { label: "Nuestros Servicios", href: "#servicios" },
     badge: { metric: "10+", label: "Años cuidando mascotas" },
-    imagePath: "/images/hero-vet.svg",
+    imagePath: "/images/hero-vet.png",
     imageAlt: "Veterinaria abrazando a un perro labrador",
   },
   petCategoriesSection: {
