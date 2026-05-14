@@ -1,75 +1,83 @@
 ---
 import { site } from "~/data/site";
-import InfoCard from "./InfoCard.astro";
 import Icon from "./Icon.astro";
 ---
 
-<section id="ubicacion" aria-labelledby="ubicacion-title" class="py-16 md:py-24 bg-white">
-  <div class="max-w-6xl mx-auto px-6">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+<section
+  id="ubicacion"
+  aria-labelledby="ubicacion-title"
+  class="relative bg-cover bg-center bg-no-repeat"
+  style={`background-image: url('${site.locationSection.imagePath}')`}
+>
+  <!-- Dark scrim for readability -->
+  <div aria-hidden="true" class="absolute inset-0 bg-brand-navy/75"></div>
 
-      <!-- Left: info cards -->
-      <div class="flex flex-col gap-8">
-        <h2 id="ubicacion-title" class="text-3xl md:text-4xl font-bold text-brand-navy">
-          {site.locationSection.title}
-        </h2>
+  <!-- Content above scrim -->
+  <div class="relative z-10 max-w-6xl mx-auto px-6 py-20 md:py-28">
 
-        <div class="flex flex-col gap-6">
-          <InfoCard icon="map-pin" title="Nuestra Clínica">
-            <p>{site.address.street}</p>
-            <p>{site.address.zip}, {site.address.city}</p>
-          </InfoCard>
+    <!-- Section title -->
+    <h2 id="ubicacion-title" class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-10">
+      {site.locationSection.title}
+    </h2>
 
-          <InfoCard icon="clock" title="Horario de Atención">
-            {site.hours.map((h) => (
-              <p>{h.days}</p>
-              <p>{h.ranges.join(" y ")}</p>
-            ))}
-          </InfoCard>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-          <InfoCard icon="phone" title="Contacto Directo">
-            <p>
-              <a href={`tel:${site.phoneTel}`} class="hover:text-brand-blue transition-colors">
-                {site.phone}
-              </a>
-            </p>
-            <p>
-              <a href={`mailto:${site.email}`} class="hover:text-brand-blue transition-colors">
-                {site.email}
-              </a>
-            </p>
-          </InfoCard>
+      <!-- Card: Nuestra Clínica -->
+      <div class="flex gap-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
+        <div class="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-brand-blue text-white">
+          <Icon name="map-pin" class="w-5 h-5" />
+        </div>
+        <div class="flex flex-col gap-1">
+          <h3 class="font-semibold text-white text-sm">Nuestra Clínica</h3>
+          <p class="text-sm text-white/70">{site.address.street}</p>
+          <p class="text-sm text-white/70">{site.address.zip}, {site.address.city}</p>
         </div>
       </div>
 
-      <!-- Right: image with overlay card -->
-      <div class="relative rounded-2xl overflow-hidden aspect-[4/3]">
-        <img
-          src={site.locationSection.imagePath}
-          alt={site.locationSection.imageAlt}
-          width="600"
-          height="450"
-          class="w-full h-full object-cover"
-          loading="lazy"
-          decoding="async"
-        />
-        <!-- Overlay card: "¿Cómo llegar?" -->
-        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] bg-white rounded-xl shadow-xl p-5 flex flex-col items-center gap-3">
-          <div class="flex items-center justify-center w-10 h-10 rounded-full bg-brand-sky text-brand-blue">
-            <Icon name="map" class="w-5 h-5" />
-          </div>
-          <p class="font-semibold text-brand-navy text-sm">¿Cómo llegar?</p>
-          <a
-            href={site.locationSection.mapsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-brand-blue text-white text-sm font-semibold hover:bg-brand-blue-600 transition-colors"
-          >
-            Ver en Google Maps
+      <!-- Card: Horario -->
+      <div class="flex gap-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
+        <div class="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-brand-blue text-white">
+          <Icon name="clock" class="w-5 h-5" />
+        </div>
+        <div class="flex flex-col gap-1">
+          <h3 class="font-semibold text-white text-sm">Horario de Atención</h3>
+          {site.hours.map((h) => (
+            <p class="text-sm text-white/70">{h.days}</p>
+            <p class="text-sm text-white/70">{h.ranges.join(" y ")}</p>
+          ))}
+        </div>
+      </div>
+
+      <!-- Card: Contacto + Cómo llegar -->
+      <div class="flex gap-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
+        <div class="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-brand-blue text-white">
+          <Icon name="phone" class="w-5 h-5" />
+        </div>
+        <div class="flex flex-col gap-1">
+          <h3 class="font-semibold text-white text-sm">Contacto Directo</h3>
+          <a href={`tel:${site.phoneTel}`} class="text-sm text-white/70 hover:text-white transition-colors">
+            {site.phone}
+          </a>
+          <a href={`mailto:${site.email}`} class="text-sm text-white/70 hover:text-white transition-colors">
+            {site.email}
           </a>
         </div>
       </div>
 
     </div>
+
+    <!-- Google Maps CTA -->
+    <div class="mt-8">
+      <a
+        href={site.locationSection.mapsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white text-brand-navy font-semibold text-sm hover:bg-brand-sky transition-colors shadow-sm"
+      >
+        <Icon name="map" class="w-4 h-4" />
+        Ver en Google Maps
+      </a>
+    </div>
+
   </div>
 </section>
