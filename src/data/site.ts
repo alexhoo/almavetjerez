@@ -2,9 +2,9 @@ export const site = {
   name: "Almavet Jerez",
   tagline: "Centro Veterinario",
   // TODO: confirm real phone number
-  phone: "956 XX XX XX",
+  phone: "+34 622 576 189",
   // TODO: confirm real phone number (tel: href format, E.164)
-  phoneTel: "+34956000000",
+  phoneTel: "+34 622 576 189",
   // TODO: confirm real email address
   email: "info@almavetjerez.com",
   address: {
@@ -47,7 +47,7 @@ export const site = {
     title: "Especialistas en cada miembro de la familia",
     description:
       "Desde los más pequeños hasta los más juguetones, nuestro equipo está preparado para brindar el mejor cuidado a perros, gatos, aves y exóticos.",
-    imagePath: "/images/pets-group.svg",
+    imagePath: "/images/animals.png",
     imageAlt: "Dos perros y un gato sentados juntos",
   },
   servicesSection: {
@@ -56,7 +56,7 @@ export const site = {
   },
   locationSection: {
     title: "Visítanos en Jerez",
-    imagePath: "/images/clinic-exterior.svg",
+    imagePath: "/images/clinic-exterior.jpg",
     imageAlt: "Exterior de la clínica Almavet Jerez",
     mapsUrl:
       "https://www.google.com/maps/search/?api=1&query=Almavet+Jerez+de+la+Frontera",

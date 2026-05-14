@@ -71,17 +71,24 @@ import Icon from "./Icon.astro";
       <!-- Right: image + badge -->
       <div class="relative">
         <div
-          class="rounded-3xl overflow-hidden shadow-xl border-4 border-white rotate-3"
+          class="relative rounded-3xl overflow-hidden shadow-xl border-4 border-white rotate-3"
         >
+          <div class="absolute inset-0 z-0 bg-brand-sky" aria-hidden="true">
+          </div>
           <img
             src={site.hero.imagePath}
             alt={site.hero.imageAlt}
             width="600"
             height="450"
-            class="w-full h-full object-cover"
+            class="relative z-20 block w-full h-full object-cover"
             loading="eager"
             decoding="async"
           />
+          <div
+            class="pointer-events-none absolute inset-0 z-10 bg-linear-to-t from-brand-navy via-brand-blue to-transparent"
+            aria-hidden="true"
+          >
+          </div>
         </div>
         <!-- Badge -->
         <div
