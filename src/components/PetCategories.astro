@@ -1,0 +1,46 @@
+---
+import { site, petCategories } from "~/data/site";
+import PetCategoryChip from "./PetCategoryChip.astro";
+---
+
+<section class="py-16 md:py-24 bg-[#F5F3FF]">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <!-- Left: text + chips -->
+      <div class="flex flex-col gap-8">
+        <div class="flex flex-col gap-4">
+          <h2
+            class="text-3xl md:text-4xl font-extrabold text-brand-navy leading-tight tracking-tight"
+          >
+            {site.petCategoriesSection.title}
+          </h2>
+          <p class="text-base text-brand-slate leading-relaxed">
+            {site.petCategoriesSection.description}
+          </p>
+        </div>
+
+        <!-- Category chips -->
+        <div class="flex flex-wrap gap-3">
+          {
+            petCategories.map((cat) => (
+              <PetCategoryChip icon={cat.icon} label={cat.label} />
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Right: image -->
+      <div class="rounded-3xl overflow-hidden aspect-[4/3]">
+        <img
+          src={site.petCategoriesSection.imagePath}
+          alt={site.petCategoriesSection.imageAlt}
+          width="600"
+          height="450"
+          class="w-full h-full object-cover"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-navy: #0f1d3a;
+  --color-brand-blue: #2b7fff;
+  --color-brand-blue-600: #1e6fe8;
+  --color-brand-lavender: #c7b3e0;
+  --color-brand-sky: #eaf2ff;
+  --color-brand-slate: #5b6b85;
+
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+}
+
+/* Smooth scroll for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Print: hide the header sticky behavior */
+@media print {
+  .sticky {
+    position: static;
+  }
+}

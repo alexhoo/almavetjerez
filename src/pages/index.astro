@@ -1,0 +1,42 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import Hero from "~/components/Hero.astro";
+import PetCategories from "~/components/PetCategories.astro";
+import Services from "~/components/Services.astro";
+import Location from "~/components/Location.astro";
+import CtaBanner from "~/components/CtaBanner.astro";
+import { site } from "~/data/site";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "VeterinaryCare",
+  name: site.name,
+  description: "Clínica veterinaria integral en Jerez de la Frontera.",
+  url: "https://almavetjerez.com",
+  telephone: site.phoneTel,
+  email: site.email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: site.address.street,
+    postalCode: site.address.zip,
+    addressLocality: site.address.city,
+    addressCountry: "ES",
+  },
+  openingHours: ["Mo-Fr 09:30-13:30", "Mo-Fr 17:30-20:30"],
+  priceRange: "€€",
+};
+---
+
+<BaseLayout
+  title="Almavet Jerez — Centro Veterinario en Jerez de la Frontera"
+  description="Clínica veterinaria integral en Jerez de la Frontera. Consultas, medicina preventiva, análisis clínicos y más. Reserva tu cita online."
+>
+  <!-- JSON-LD structured data -->
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
+
+  <Hero />
+  <PetCategories />
+  <Services />
+  <Location />
+  <CtaBanner />
+</BaseLayout>
