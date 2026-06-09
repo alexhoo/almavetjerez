@@ -18,6 +18,10 @@ export const site = {
       days: "Lunes a Viernes",
       ranges: ["09:30 – 13:30", "17:30 – 20:30"],
     },
+    {
+      days: "Sábados",
+      ranges: ["10:30 – 13:30"],
+    },
   ],
   social: {
     // TODO: confirm real Facebook URL
@@ -106,18 +110,11 @@ export const services = [
     title: "Análisis Clínicos",
     desc: "Laboratorio propio para obtener resultados rápidos y precisos en minutos.",
   },
-  {
-    id: "diagnostico-imagen",
-    icon: "scan",
-    title: "Diagnóstico Imagen",
-    desc: "Ecografía y radiología avanzada para un diagnóstico certero y temprano.",
-  },
 ] as const;
 
 export const petCategories = [
   { icon: "dog", label: "Caninos" },
   { icon: "cat", label: "Felinos" },
-  { icon: "bird", label: "Aves" },
   { icon: "reptile", label: "Exóticos" },
 ] as const;
 
