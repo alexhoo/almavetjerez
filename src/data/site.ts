@@ -20,7 +20,7 @@ export const site = {
     },
     {
       days: "Sábados",
-      ranges: ["10:30 – 13:30"],
+      ranges: ["11:00 – 13:30"],
     },
   ],
   social: {
@@ -30,7 +30,7 @@ export const site = {
     instagram: "https://instagram.com/almavetjerez",
   },
   topBar: {
-    hours: "L-V 09:30-13:30 · 17:30-20:30 · Sáb 10:30-13:30",
+    hours: "L-V 09:30-13:30 · 17:30-20:30 · Sáb 11:00-13:30",
   },
   nav: [
     { label: "Servicios", href: "#servicios" },
@@ -57,7 +57,7 @@ export const site = {
     eyebrow: "Para toda la familia",
     title: "Especialistas en cada miembro de la familia",
     description:
-      "Desde los más pequeños hasta los más juguetones, nuestro equipo está preparado para brindar el mejor cuidado a perros, gatos y exóticos.",
+      "Desde los más pequeños hasta los más juguetones, nuestro equipo está preparado para brindar el mejor cuidado a perros y gatos.",
     imagePath: "/images/animals.webp",
     imageAlt: "Un perro y un gato posando juntos",
     values: [
@@ -139,7 +139,6 @@ export const services = [
 export const petCategories = [
   { icon: "dog", label: "Caninos" },
   { icon: "cat", label: "Felinos" },
-  { icon: "reptile", label: "Exóticos" },
 ] as const;
 
 export type Service = (typeof services)[number];
