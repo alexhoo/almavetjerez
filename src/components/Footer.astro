@@ -6,24 +6,24 @@ import Icon from "./Icon.astro";
 <footer role="contentinfo" class="bg-brand-navy text-white">
   <div class="max-w-6xl mx-auto px-6 py-16">
     <div
-      class="grid grid-cols-1 md:grid-cols-3 gap-10 pb-10 border-b border-white/10"
+      class="grid grid-cols-1 md:grid-cols-[1.6fr_1fr_1fr] gap-10 pb-10 border-b border-white/10"
     >
       <!-- Col 1: Brand -->
       <div class="flex flex-col gap-4">
         <div class="flex items-center gap-2">
           <a
             href="/"
-            class="flex items-center gap-4 shrink-0 group"
+            class="inline-flex items-center bg-white rounded-xl px-4 py-2.5 shrink-0"
             aria-label="Almavet Jerez — Inicio"
           >
             <img
               src="/images/logo-almavetjerez.svg"
               alt="Almavet Jerez"
-              class="w-72 h-auto"
+              class="w-40 h-auto"
             />
           </a>
         </div>
-        <p class="text-sm text-white/60 leading-relaxed max-w-xs">
+        <p class="text-sm text-white/70 leading-relaxed max-w-sm">
           {site.footer.description}
         </p>
       </div>
@@ -31,9 +31,9 @@ import Icon from "./Icon.astro";
       <!-- Col 2: Quick links -->
       <div class="flex flex-col gap-4">
         <h3
-          class="font-semibold text-sm uppercase tracking-wider text-white/80"
+          class="font-bold text-sm text-white"
         >
-          Enlaces Rápidos
+          Enlaces rápidos
         </h3>
         <ul class="flex flex-col gap-2">
           {
@@ -41,7 +41,7 @@ import Icon from "./Icon.astro";
               <li>
                 <a
                   href={link.href}
-                  class="text-sm text-white/60 hover:text-white transition-colors"
+                  class="text-sm text-white/70 hover:text-white transition-colors"
                 >
                   {link.label}
                 </a>
@@ -54,13 +54,13 @@ import Icon from "./Icon.astro";
       <!-- Col 3: Contact -->
       <div class="flex flex-col gap-4">
         <h3
-          class="font-semibold text-sm uppercase tracking-wider text-white/80"
+          class="font-bold text-sm text-white"
         >
           Contacto
         </h3>
         <ul class="flex flex-col gap-3">
-          <li class="flex items-center gap-3 text-sm text-white/60">
-            <Icon name="phone" class="w-4 h-4 flex-shrink-0 text-brand-blue" />
+          <li class="flex items-center gap-3 text-sm text-white/70">
+            <Icon name="phone" class="w-4 h-4 flex-shrink-0 text-brand-lavender" />
             <a
               href={`tel:${site.phoneTel}`}
               class="hover:text-white transition-colors"
@@ -68,14 +68,18 @@ import Icon from "./Icon.astro";
               {site.phone}
             </a>
           </li>
-          <li class="flex items-center gap-3 text-sm text-white/60">
-            <Icon name="mail" class="w-4 h-4 flex-shrink-0 text-brand-blue" />
+          <li class="flex items-center gap-3 text-sm text-white/70">
+            <Icon name="mail" class="w-4 h-4 flex-shrink-0 text-brand-lavender" />
             <a
               href={`mailto:${site.email}`}
               class="hover:text-white transition-colors"
             >
               {site.email}
             </a>
+          </li>
+          <li class="flex items-start gap-3 text-sm text-white/70">
+            <Icon name="map-pin" class="w-4 h-4 mt-0.5 flex-shrink-0 text-brand-lavender" />
+            <span>{site.address.street}<br />{site.address.zip}, {site.address.city}</span>
           </li>
         </ul>
         <!-- Social -->
@@ -104,10 +108,18 @@ import Icon from "./Icon.astro";
 
     <!-- Bottom bar -->
     <div
-      class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/40"
+      class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/50"
     >
       <p>{site.footer.copyright}</p>
-      <p>{site.footer.tagline}</p>
+      <div class="flex items-center gap-6">
+        <a
+          href={site.footer.privacy.href}
+          class="underline underline-offset-2 hover:text-white transition-colors"
+        >
+          {site.footer.privacy.label}
+        </a>
+        <p>{site.footer.tagline}</p>
+      </div>
     </div>
   </div>
 </footer>

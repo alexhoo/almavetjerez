@@ -1,0 +1,28 @@
+---
+import { site } from "~/data/site";
+import Icon from "./Icon.astro";
+---
+
+<div class="bg-brand-navy text-white text-xs">
+  <div
+    class="max-w-6xl mx-auto px-6 py-2 flex items-center justify-between gap-4"
+  >
+    <div class="hidden md:flex items-center gap-6 text-white/80">
+      <p class="flex items-center gap-2">
+        <Icon name="clock" class="w-3.5 h-3.5 text-brand-lavender" />
+        {site.topBar.hours}
+      </p>
+      <p class="flex items-center gap-2">
+        <Icon name="map-pin" class="w-3.5 h-3.5 text-brand-lavender" />
+        {site.address.street}, Jerez
+      </p>
+    </div>
+    <a
+      href={`tel:${site.phoneTel}`}
+      class="ml-auto flex items-center gap-2 font-semibold hover:text-brand-lavender transition-colors"
+    >
+      <Icon name="phone" class="w-3.5 h-3.5 text-brand-lavender" />
+      {site.phone}
+    </a>
+  </div>
+</div>

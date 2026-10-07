@@ -1,0 +1,67 @@
+---
+import { site } from "~/data/site";
+import Icon from "./Icon.astro";
+import type { IconName } from "~/types/icons";
+
+const items: {
+  icon: IconName;
+  title: string;
+  lines: string[];
+  tone: string;
+}[] = [
+  {
+    icon: "map-pin",
+    title: "Dónde estamos",
+    lines: [site.address.street, `${site.address.zip}, ${site.address.city}`],
+    tone: "bg-brand-sky text-brand-blue",
+  },
+  {
+    icon: "clock",
+    title: "Horario",
+    lines: [
+      "L-V 09:30-13:30 y 17:30-20:30",
+      "Sábados 10:30-13:30",
+    ],
+    tone: "bg-purple-100 text-brand-purple",
+  },
+  {
+    icon: "phone",
+    title: "Llámanos",
+    lines: [site.phone, site.email],
+    tone: "bg-brand-sky text-brand-blue",
+  },
+];
+---
+
+<section aria-label="Datos de contacto" class="relative z-10 -mt-8 pb-8">
+  <div class="max-w-6xl mx-auto px-6">
+    <div
+      class="grid grid-cols-1 md:grid-cols-3 md:divide-x divide-y md:divide-y-0 divide-slate-200/70 bg-white rounded-2xl shadow-xl shadow-brand-navy/10 border border-slate-200/60"
+    >
+      {
+        items.map((item) => (
+          <div class="flex items-start gap-4 p-6">
+            <div
+              class={`flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-xl ${item.tone}`}
+            >
+              <Icon name={item.icon} class="w-5 h-5" />
+            </div>
+            <div class="flex flex-col gap-0.5 text-sm">
+              <h3 class="font-bold text-brand-navy">{item.title}</h3>
+              {item.lines.map((line, i) => (
+                <p
+                  class:list={[
+                    "text-brand-slate",
+                    item.icon === "phone" && i === 0 && "font-bold text-brand-navy",
+                  ]}
+                >
+                  {line}
+                </p>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

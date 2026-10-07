@@ -7,8 +7,11 @@
   --color-brand-lavender: #c7b3e0;
   --color-brand-sky: #eaf2ff;
   --color-brand-slate: #5b6b85;
+  --color-brand-purple: #6b3fa0;
+  --color-brand-mist: #f4f6fc;
 
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
 
   --radius-sm: 8px;
   --radius-md: 12px;

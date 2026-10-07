@@ -1,29 +1,48 @@
 ---
 import { site, services } from "~/data/site";
+import Icon from "./Icon.astro";
 import ServiceCard from "./ServiceCard.astro";
 ---
 
-<section id="servicios" aria-labelledby="servicios-title" class="py-16 md:py-24 bg-brand-sky">
+<section
+  id="servicios"
+  aria-labelledby="servicios-title"
+  class="py-16 md:py-24 bg-white scroll-mt-20"
+>
   <div class="max-w-6xl mx-auto px-6">
-
     <!-- Header -->
-    <div class="flex flex-col items-center text-center gap-4 mb-12">
-      <p class="text-xs font-semibold uppercase tracking-widest text-brand-blue">
-        ● {site.servicesSection.eyebrow}
-      </p>
-      <h2 id="servicios-title" class="text-3xl md:text-4xl font-bold text-brand-navy">
-        {site.servicesSection.title}
-      </h2>
-      <!-- Decorative underline -->
-      <div class="w-12 h-1 rounded-full bg-brand-blue"></div>
+    <div class="flex flex-wrap items-end justify-between gap-4 mb-10">
+      <div class="flex flex-col gap-3">
+        <p class="text-xs font-bold uppercase tracking-widest text-brand-purple">
+          {site.servicesSection.eyebrow}
+        </p>
+        <h2
+          id="servicios-title"
+          class="font-display text-3xl md:text-4xl font-extrabold text-brand-navy tracking-tight leading-tight max-w-sm"
+        >
+          {site.servicesSection.title}
+        </h2>
+      </div>
+      <a
+        href={site.servicesSection.link.href}
+        class="inline-flex items-center gap-2 text-sm font-bold text-brand-blue hover:text-brand-blue-600 transition-colors"
+      >
+        {site.servicesSection.link.label}
+        <Icon name="arrow-right" class="w-4 h-4" />
+      </a>
     </div>
 
     <!-- Services grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-      {services.map((service) => (
-        <ServiceCard icon={service.icon} title={service.title} desc={service.desc} />
-      ))}
+      {
+        services.map((service) => (
+          <ServiceCard
+            icon={service.icon}
+            title={service.title}
+            desc={service.desc}
+          />
+        ))
+      }
     </div>
-
   </div>
 </section>
