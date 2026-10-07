@@ -20,4 +20,8 @@ export type IconName =
   | "calendar-check"
   | "check-circle"
   | "paw"
-  | "bullet";
+  | "bullet"
+  | "sun"
+  | "arrow-right"
+  | "check"
+  | "heart";

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import Hero from "~/components/Hero.astro";
+import InfoStrip from "~/components/InfoStrip.astro";
 import PetCategories from "~/components/PetCategories.astro";
 import Services from "~/components/Services.astro";
 import Location from "~/components/Location.astro";
@@ -35,8 +36,9 @@ const jsonLd = {
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
 
   <Hero />
-  <PetCategories />
+  <InfoStrip />
   <Services />
+  <PetCategories />
   <Location />
   <CtaBanner />
 </BaseLayout>
