@@ -6,8 +6,6 @@ export type IconName =
   | "scan"
   | "dog"
   | "cat"
-  | "bird"
-  | "reptile"
   | "map-pin"
   | "clock"
   | "phone"

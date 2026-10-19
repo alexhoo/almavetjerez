@@ -379,7 +379,7 @@ export const site = {
   petCategoriesSection: {
     title: "Especialistas en cada miembro de la familia",
     description:
-      "Desde los más pequeños hasta los más juguetones, nuestro equipo está preparado para brindar el mejor cuidado a perros, gatos, aves y exóticos.",
+      "Desde los más pequeños hasta los más juguetones, nuestro equipo está preparado para brindar el mejor cuidado a perros y gatos.",
     imagePath: "/images/pets-group.svg",
     imageAlt: "Dos perros y un gato sentados juntos",
   },
@@ -450,8 +450,6 @@ export const services = [
 export const petCategories = [
   { icon: "dog", label: "Caninos" },
   { icon: "cat", label: "Felinos" },
-  { icon: "bird", label: "Aves" },
-  { icon: "reptile", label: "Exóticos" },
 ] as const;
 
 export type Service = (typeof services)[number];
@@ -499,8 +497,6 @@ export type IconName =
   | "scan"
   | "dog"
   | "cat"
-  | "bird"
-  | "reptile"
   | "map-pin"
   | "clock"
   | "phone"
@@ -551,16 +547,6 @@ const { name, class: className = "w-5 h-5", "aria-hidden": ariaHidden = "true" }
 {name === "cat" && (
   <svg class={className} aria-hidden={ariaHidden} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.23A9.04 9.04 0 0 1 12 5"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75"/>
-  </svg>
-)}
-{name === "bird" && (
-  <svg class={className} aria-hidden={ariaHidden} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M16 7h.01"/><path d="M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.28-2.3L2 20"/><path d="m20 7 2 .5-2 .5"/><path d="M10 18v3"/><path d="M14 17.75V21"/><path d="M7 18a6 6 0 0 0 3.84-10.61"/>
-  </svg>
-)}
-{name === "reptile" && (
-  <svg class={className} aria-hidden={ariaHidden} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01"/><path d="M15 9h.01"/><path d="M7 5c1.5-1 3-1 5-1s3.5 0 5 1"/>
   </svg>
 )}
 {name === "map-pin" && (
@@ -1631,7 +1617,7 @@ import CtaBanner from "~/components/CtaBanner.astro";
 import { site } from "~/data/site";
 
 const description =
-  "Almavet Jerez: centro veterinario en Jerez de la Frontera. Consultas, medicina preventiva, análisis clínicos y diagnóstico por imagen para perros, gatos, aves y exóticos.";
+  "Almavet Jerez: centro veterinario en Jerez de la Frontera. Consultas, medicina preventiva, análisis clínicos y diagnóstico por imagen para perros y gatos.";
 const title = `${site.name} · Centro Veterinario en Jerez de la Frontera`;
 
 const jsonLd = {
@@ -1875,8 +1861,7 @@ export default function AppointmentForm({
             <option value="" disabled>Selecciona…</option>
             <option value="perro">Perro</option>
             <option value="gato">Gato</option>
-            <option value="ave">Ave</option>
-            <option value="otro">Otro / Exótico</option>
+            <option value="otro">Otro</option>
           </select>
         </Field>
       </div>
@@ -2397,7 +2382,7 @@ Open the preview URL in a browser sized to approximately 1440×900. Put the refe
 
 - [ ] **Header:** Logo "ALMAVET JEREZ" + tagline, 3 nav links, blue "Pedir Cita" pill button.
 - [ ] **Hero:** Two-line headline with the word "más quieres" in blue with an underline curve; eyebrow with bullet; two CTAs; lavender badge "10+" floating on the hero image.
-- [ ] **PetCategories:** Title on the left, 4 chips (Caninos / Felinos / Aves / Exóticos) with icons, image on the right.
+- [ ] **PetCategories:** Title on the left, 2 chips (Caninos / Felinos) with icons, image on the right.
 - [ ] **Services:** Centered eyebrow "● ESPECIALIDADES", title + blue underline divider, 5 cards in a row with icons.
 - [ ] **Location:** 3 InfoCards on the left (Nuestra Clínica / Horario / Contacto Directo), map image on the right with an overlaid white card "¿Cómo llegar?" with "Ver en Google Maps" button.
 - [ ] **CtaBanner:** Blue gradient section with white title, description, white "Reservar Ahora" button, and "Llamar: ..." link.

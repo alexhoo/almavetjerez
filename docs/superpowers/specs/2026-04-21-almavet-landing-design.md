@@ -221,8 +221,6 @@ export const services = [
 export const petCategories = [
   { icon: "dog", label: "Caninos" },
   { icon: "cat", label: "Felinos" },
-  { icon: "bird", label: "Aves" },
-  { icon: "reptile", label: "Exóticos" },
 ] as const;
 
 export type Service = (typeof services)[number];
@@ -283,7 +281,7 @@ Descriptions above are placeholders reasonable for a vet clinic; client can tigh
 ### 6.10 `Icon.astro`
 - Props: `{ name: IconName, class?: string }`.
 - Inline SVG map keyed by `name`.
-- Required icons: `dog`, `cat`, `bird`, `reptile`, `stethoscope`, `shield-heart`, `activity`, `flask`, `scan`, `map-pin`, `clock`, `phone`, `chevron-down`, `menu`, `x`, `mail`, `facebook`, `instagram`, `map`, `calendar-check`, `check-circle`.
+- Required icons: `dog`, `cat`, `stethoscope`, `shield-heart`, `activity`, `flask`, `scan`, `map-pin`, `clock`, `phone`, `chevron-down`, `menu`, `x`, `mail`, `facebook`, `instagram`, `map`, `calendar-check`, `check-circle`.
 - SVGs respect `currentColor` for CSS-driven coloring.
 - Source: hand-crafted or from Lucide (MIT-licensed, hand-tuned SVG data copied inline).
 
@@ -309,7 +307,7 @@ Fields (in order):
 | `phone` | tel | yes | `pattern="[0-9\\s+]{9,}"` |
 | `email` | email | yes | HTML type validation |
 | `pet_name` | text | yes | |
-| `pet_type` | select | yes | Options: Perro, Gato, Ave, Otro |
+| `pet_type` | select | yes | Options: Perro, Gato, Otro |
 | `service` | select | yes | Options: 5 services + "Otro / No estoy seguro" |
 | `preferred_date` | date | yes | `min={today}` |
 | `preferred_time` | select | yes | Options: Mañana (9:30–13:30), Tarde (17:30–20:30), Sin preferencia |

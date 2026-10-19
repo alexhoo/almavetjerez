@@ -13,7 +13,7 @@ const serviceOptions = [
   "Otro / No estoy seguro",
 ];
 
-const petTypeOptions = ["Perro", "Gato", "Ave", "Otro"];
+const petTypeOptions = ["Perro", "Gato", "Otro"];
 const timeOptions = [
   { value: "manana", label: "Mañana (09:30 – 13:30)" },
   { value: "tarde", label: "Tarde (17:30 – 20:30)" },
