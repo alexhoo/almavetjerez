@@ -50,8 +50,8 @@ export const site = {
     checks: ["Laboratorio propio", "Perros, gatos y exóticos", "Cita online"],
     badge: { metric: "10+", label: "años cuidando mascotas" },
     chip: "Resultados de laboratorio en minutos",
-    imagePath: "/images/hero-vet.png",
-    imageAlt: "Veterinaria abrazando a un perro labrador",
+    imagePath: "/images/hero-vet.webp",
+    imageAlt: "Veterinaria de Almavet Jerez revisando con cariño a un yorkshire terrier",
   },
   petCategoriesSection: {
     eyebrow: "Para toda la familia",
