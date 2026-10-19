@@ -27,7 +27,9 @@ import Icon from "./Icon.astro";
         </h1>
 
         <!-- Description -->
-        <p class="text-base md:text-lg text-brand-slate leading-relaxed max-w-md">
+        <p
+          class="text-base md:text-lg text-brand-slate leading-relaxed max-w-md"
+        >
           {site.hero.description}
         </p>
 
@@ -82,14 +84,16 @@ import Icon from "./Icon.astro";
 
         <!-- Lab results chip -->
         <div
-          class="absolute top-4 right-3 md:-right-4 flex items-center gap-3 bg-white rounded-2xl px-4 py-3 shadow-lg"
+          class="absolute bottom-0 right-0 md:bottom-auto md:top-4 md:-right-4 flex items-center gap-3 bg-white rounded-2xl px-4 py-3 shadow-lg"
         >
           <div
             class="flex items-center justify-center w-8 h-8 rounded-lg bg-brand-sky text-brand-blue"
           >
             <Icon name="flask" class="w-4 h-4" />
           </div>
-          <p class="text-xs font-bold text-brand-navy leading-tight max-w-[110px]">
+          <p
+            class="text-xs font-bold text-brand-navy leading-tight max-w-[110px]"
+          >
             {site.hero.chip}
           </p>
         </div>
@@ -98,10 +102,14 @@ import Icon from "./Icon.astro";
         <div
           class="absolute -bottom-4 -left-3 md:-left-8 flex items-center gap-3 bg-white rounded-2xl px-5 py-4 shadow-lg"
         >
-          <p class="font-display text-4xl font-extrabold text-brand-blue leading-none tracking-tight">
+          <p
+            class="font-display text-4xl font-extrabold text-brand-blue leading-none tracking-tight"
+          >
             {site.hero.badge.metric}
           </p>
-          <p class="text-xs font-medium text-brand-slate leading-tight max-w-[80px]">
+          <p
+            class="text-xs font-medium text-brand-slate leading-tight max-w-[80px]"
+          >
             {site.hero.badge.label}
           </p>
         </div>

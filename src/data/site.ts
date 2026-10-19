@@ -47,7 +47,7 @@ export const site = {
       "En Almavet Jerez ofrecemos una atención veterinaria integral basada en el cuidado, la innovación y la excelencia clínica para tus mejores amigos.",
     primaryCta: { label: "Pedir cita online", href: "/reservar" },
     secondaryCta: { label: "Llamar a la clínica" },
-    checks: ["Laboratorio propio", "Perros, gatos y exóticos", "Cita online"],
+    checks: ["Laboratorio propio", "Diagnóstico por imagen", "Perros y gatos", "Cita online"],
     badge: { metric: "10+", label: "años cuidando mascotas" },
     chip: "Resultados de laboratorio en minutos",
     imagePath: "/images/hero-vet.webp",
