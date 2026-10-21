@@ -36,11 +36,12 @@ const items: {
 <section aria-label="Datos de contacto" class="relative z-10 -mt-8 pb-8">
   <div class="max-w-6xl mx-auto px-6">
     <div
+      data-reveal-group
       class="grid grid-cols-1 md:grid-cols-3 md:divide-x divide-y md:divide-y-0 divide-slate-200/70 bg-white rounded-2xl shadow-xl shadow-brand-navy/10 border border-slate-200/60"
     >
       {
         items.map((item) => (
-          <div class="flex items-start gap-4 p-6">
+          <div data-reveal-item class="flex items-start gap-4 p-6">
             <div
               class={`flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-xl ${item.tone}`}
             >

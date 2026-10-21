@@ -11,7 +11,7 @@ import ServiceCard from "./ServiceCard.astro";
 >
   <div class="max-w-6xl mx-auto px-6">
     <!-- Header -->
-    <div class="flex flex-wrap items-end justify-between gap-4 mb-10">
+    <div data-reveal class="flex flex-wrap items-end justify-between gap-4 mb-10">
       <div class="flex flex-col gap-3">
         <p class="text-xs font-bold uppercase tracking-widest text-brand-purple">
           {site.servicesSection.eyebrow}
@@ -25,6 +25,7 @@ import ServiceCard from "./ServiceCard.astro";
       </div>
       <a
         href={site.servicesSection.link.href}
+        data-arrow-link
         class="inline-flex items-center gap-2 text-sm font-bold text-brand-blue hover:text-brand-blue-600 transition-colors"
       >
         {site.servicesSection.link.label}
@@ -33,7 +34,10 @@ import ServiceCard from "./ServiceCard.astro";
     </div>
 
     <!-- Services grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+    <div
+      data-reveal-group
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4"
+    >
       {
         services.map((service) => (
           <ServiceCard

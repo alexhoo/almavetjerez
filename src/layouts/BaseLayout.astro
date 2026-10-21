@@ -49,6 +49,17 @@ const ogImageUrl = ogImage ?? `${Astro.site}og-default.jpg`;
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
     />
 
+    <!-- Motion: opt in (hide reveal targets) only when the user accepts animation.
+         Failsafe: if the motion module never boots, reveal everything after 3s. -->
+    <script is:inline>
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        document.documentElement.classList.add("motion-ok");
+        setTimeout(function () {
+          if (!window.__motionReady) document.documentElement.classList.remove("motion-ok");
+        }, 3000);
+      }
+    </script>
+
     <slot name="head" />
   </head>
   <body class="font-sans text-gray-900 bg-white antialiased">
@@ -58,5 +69,8 @@ const ogImageUrl = ogImage ?? `${Astro.site}og-default.jpg`;
       <slot />
     </main>
     <Footer />
+    <script>
+      import "../scripts/motion";
+    </script>
   </body>
 </html>

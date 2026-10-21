@@ -9,19 +9,22 @@ import Icon from "./Icon.astro";
   class="py-16 md:py-24 bg-brand-mist scroll-mt-20"
 >
   <div class="max-w-6xl mx-auto px-6">
-    <p class="text-xs font-bold uppercase tracking-widest text-brand-purple mb-3">
-      {site.locationSection.eyebrow}
-    </p>
-    <h2
-      id="ubicacion-title"
-      class="font-display text-3xl md:text-4xl font-extrabold text-brand-navy tracking-tight mb-10"
-    >
-      {site.locationSection.title}
-    </h2>
+    <div data-reveal class="mb-10">
+      <p class="text-xs font-bold uppercase tracking-widest text-brand-purple mb-3">
+        {site.locationSection.eyebrow}
+      </p>
+      <h2
+        id="ubicacion-title"
+        class="font-display text-3xl md:text-4xl font-extrabold text-brand-navy tracking-tight"
+      >
+        {site.locationSection.title}
+      </h2>
+    </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6">
       <!-- Map -->
       <div
+        data-reveal
         class="relative min-h-[320px] lg:min-h-[420px] rounded-3xl overflow-hidden bg-slate-200 border border-slate-200/70"
       >
         <iframe
@@ -35,6 +38,7 @@ import Icon from "./Icon.astro";
 
       <!-- Info card -->
       <div
+        data-reveal
         class="flex flex-col gap-6 bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200/60"
       >
         <div class="flex flex-col gap-4">

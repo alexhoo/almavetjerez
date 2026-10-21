@@ -6,17 +6,16 @@ import Icon from "./Icon.astro";
 <section aria-label="Llamada a la acción" class="py-16 md:py-24 bg-white">
   <div class="max-w-6xl mx-auto px-6">
     <div
+      data-reveal
       class="relative overflow-hidden rounded-3xl bg-brand-blue-600 px-8 py-12 md:px-16 md:py-16"
     >
       <!-- Decorative paws -->
-      <Icon
-        name="paw"
-        class="absolute -bottom-6 right-8 w-28 h-28 text-white/10 rotate-12"
-      />
-      <Icon
-        name="paw"
-        class="absolute bottom-16 right-40 w-16 h-16 text-white/10 -rotate-12"
-      />
+      <div data-float aria-hidden="true" class="absolute -bottom-6 right-8">
+        <Icon name="paw" class="w-28 h-28 text-white/10 rotate-12" />
+      </div>
+      <div data-float aria-hidden="true" class="absolute bottom-16 right-40">
+        <Icon name="paw" class="w-16 h-16 text-white/10 -rotate-12" />
+      </div>
 
       <div
         class="relative grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 items-center text-white"
@@ -32,12 +31,14 @@ import Icon from "./Icon.astro";
         <div class="flex flex-wrap gap-3">
           <a
             href={site.cta.primaryCta.href}
+            data-press
             class="inline-flex items-center px-6 py-3 rounded-full bg-white text-brand-blue font-bold text-sm hover:bg-brand-sky transition-colors shadow-sm"
           >
             {site.cta.primaryCta.label}
           </a>
           <a
             href={`tel:${site.phoneTel}`}
+            data-press
             class="inline-flex items-center px-6 py-3 rounded-full border border-white/50 bg-white/10 text-white font-bold text-sm hover:bg-white/20 transition-colors"
           >
             Llamar: {site.phone}

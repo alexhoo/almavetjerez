@@ -11,7 +11,8 @@ const { icon, title, desc } = Astro.props;
 ---
 
 <div
-  class="flex flex-col gap-4 p-6 bg-brand-mist rounded-2xl border border-slate-200/70 hover:shadow-lg hover:-translate-y-0.5 transition-all group"
+  data-reveal-item
+  class="flex flex-col gap-4 p-6 bg-brand-mist rounded-2xl border border-slate-200/70 hover:shadow-lg hover:-translate-y-0.5 transition-[box-shadow,translate] group"
 >
   <div
     class="flex items-center justify-center w-11 h-11 rounded-xl bg-white text-brand-blue shadow-sm group-hover:bg-brand-blue group-hover:text-white transition-colors"

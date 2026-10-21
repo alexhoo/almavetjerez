@@ -32,6 +32,21 @@ html {
   }
 }
 
+/* Motion: initial hidden state for animated targets.
+   `.motion-ok` is only set (inline script in BaseLayout) when the user has not
+   requested reduced motion, so without JS or with reduced motion nothing is hidden. */
+.motion-ok :is([data-hero], [data-hero-plate], [data-hero-media], [data-hero-chip], [data-reveal], [data-reveal-item]) {
+  opacity: 0;
+}
+
+/* Header gains a soft shadow once the page scrolls (toggled in scripts/motion.ts) */
+header[data-header] {
+  transition: box-shadow 0.3s ease;
+}
+header[data-header][data-scrolled] {
+  box-shadow: 0 6px 20px -12px rgb(15 29 58 / 0.25);
+}
+
 /* Print: hide the header sticky behavior */
 @media print {
   .sticky {
