@@ -1,0 +1,34 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  heading: string;
+}
+
+const { title, description, heading } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="max-w-3xl mx-auto px-6 py-16 md:py-24">
+    <header class="flex flex-col gap-3 mb-10">
+      <p class="text-sm font-semibold text-brand-blue">MARSON VET S.L.</p>
+      <h1 class="font-display text-3xl md:text-4xl font-bold text-brand-navy">
+        {heading}
+      </h1>
+    </header>
+    <div
+      class="flex flex-col gap-4 text-base text-brand-slate leading-relaxed
+        [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-brand-navy [&_h2]:mt-8
+        [&_h3]:font-bold [&_h3]:text-lg [&_h3]:text-brand-navy [&_h3]:mt-4
+        [&_strong]:text-brand-navy
+        [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:flex [&_ul]:flex-col [&_ul]:gap-2
+        [&_a]:text-brand-blue [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:text-brand-blue-600
+        [&_dl]:grid [&_dl]:grid-cols-1 sm:[&_dl]:grid-cols-[max-content_1fr] [&_dl]:gap-x-6 [&_dl]:gap-y-1
+        [&_dt]:font-semibold [&_dt]:text-brand-navy"
+    >
+      <slot />
+    </div>
+  </section>
+</BaseLayout>

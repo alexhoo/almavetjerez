@@ -1,8 +1,23 @@
-import { useState, type FormEvent } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
+import { format, startOfToday } from "date-fns";
+import { es } from "date-fns/locale";
+import { CalendarIcon, LoaderCircleIcon } from "lucide-react";
+import { Button } from "~/components/ui/button";
+import { Calendar } from "~/components/ui/calendar";
+import { Checkbox } from "~/components/ui/checkbox";
+import { Input } from "~/components/ui/input";
+import { Label } from "~/components/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "~/components/ui/popover";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "~/components/ui/select";
+import { Textarea } from "~/components/ui/textarea";
 
 type SubmitStatus = "idle" | "submitting" | "error";
-
-const today = new Date().toISOString().split("T")[0];
 
 const serviceOptions = [
   "Consultas",
@@ -20,12 +35,119 @@ const timeOptions = [
   { value: "indistinto", label: "Sin preferencia" },
 ];
 
+const controlClass = "h-11 rounded-md bg-white px-4";
+const selectTriggerClass = `${controlClass} w-full data-[size=default]:h-11`;
+
+function Field({
+  id,
+  label,
+  required = true,
+  children,
+}: {
+  id: string;
+  label: string;
+  required?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      <Label htmlFor={id} className="gap-1 text-sm font-semibold text-brand-navy">
+        {label}
+        {required ? (
+          <span aria-hidden="true" className="text-red-500">*</span>
+        ) : (
+          <span className="text-brand-slate font-normal">(opcional)</span>
+        )}
+      </Label>
+      {children}
+    </div>
+  );
+}
+
+function DatePickerField({ id, label }: { id: string; label: string }) {
+  const [date, setDate] = useState<Date>();
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Field id={id} label={label}>
+      <input type="hidden" name={id} value={date ? format(date, "yyyy-MM-dd") : ""} />
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            id={id}
+            type="button"
+            variant="outline"
+            aria-required="true"
+            data-empty={!date}
+            className={`${controlClass} w-full justify-between font-normal text-brand-navy data-[empty=true]:text-muted-foreground`}
+          >
+            {date ? format(date, "PPP", { locale: es }) : <span>Selecciona una fecha…</span>}
+            <CalendarIcon className="opacity-50" aria-hidden="true" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-auto p-0" align="start">
+          <Calendar
+            mode="single"
+            locale={es}
+            selected={date}
+            {...(date && { defaultMonth: date })}
+            disabled={{ before: startOfToday() }}
+            onSelect={(next) => {
+              setDate(next);
+              setOpen(false);
+            }}
+          />
+        </PopoverContent>
+      </Popover>
+    </Field>
+  );
+}
+
+function SelectField({
+  id,
+  label,
+  placeholder,
+  options,
+}: {
+  id: string;
+  label: string;
+  placeholder: string;
+  options: readonly { value: string; label: string }[];
+}) {
+  return (
+    <Field id={id} label={label}>
+      <Select name={id} required>
+        <SelectTrigger id={id} aria-required="true" className={selectTriggerClass}>
+          <SelectValue placeholder={placeholder} />
+        </SelectTrigger>
+        <SelectContent position="popper">
+          {options.map((opt) => (
+            <SelectItem key={opt.value} value={opt.value}>
+              {opt.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </Field>
+  );
+}
+
 export function AppointmentForm() {
   const [status, setStatus] = useState<SubmitStatus>("idle");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
+  const [privacyError, setPrivacyError] = useState(false);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    // The form is noValidate, so the privacy consent is enforced here.
+    if (!privacyAccepted) {
+      setPrivacyError(true);
+      document.getElementById("privacy")?.focus();
+      return;
+    }
+
     setStatus("submitting");
     setErrorMsg(null);
 
@@ -94,11 +216,8 @@ export function AppointmentForm() {
 
       {/* Row 1: Name + Phone */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div className="flex flex-col gap-1.5">
-          <label htmlFor="name" className="text-sm font-semibold text-brand-navy">
-            Nombre completo <span aria-hidden="true" className="text-red-500">*</span>
-          </label>
-          <input
+        <Field id="name" label="Nombre completo">
+          <Input
             id="name"
             name="name"
             type="text"
@@ -106,14 +225,11 @@ export function AppointmentForm() {
             minLength={2}
             placeholder="María García"
             aria-required="true"
-            className="rounded-xl border border-slate-300 px-4 py-2.5 text-sm text-brand-navy placeholder-brand-slate/60 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent"
+            className={controlClass}
           />
-        </div>
-        <div className="flex flex-col gap-1.5">
-          <label htmlFor="phone" className="text-sm font-semibold text-brand-navy">
-            Teléfono <span aria-hidden="true" className="text-red-500">*</span>
-          </label>
-          <input
+        </Field>
+        <Field id="phone" label="Teléfono">
+          <Input
             id="phone"
             name="phone"
             type="tel"
@@ -121,152 +237,138 @@ export function AppointmentForm() {
             pattern="[0-9\s+]{9,}"
             placeholder="612 34 56 78"
             aria-required="true"
-            className="rounded-xl border border-slate-300 px-4 py-2.5 text-sm text-brand-navy placeholder-brand-slate/60 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent"
+            className={controlClass}
           />
-        </div>
+        </Field>
       </div>
 
       {/* Row 2: Email */}
-      <div className="flex flex-col gap-1.5">
-        <label htmlFor="email" className="text-sm font-semibold text-brand-navy">
-          Email <span aria-hidden="true" className="text-red-500">*</span>
-        </label>
-        <input
+      <Field id="email" label="Email">
+        <Input
           id="email"
           name="email"
           type="email"
           required
           placeholder="maria@ejemplo.com"
           aria-required="true"
-          className="rounded-xl border border-slate-300 px-4 py-2.5 text-sm text-brand-navy placeholder-brand-slate/60 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent"
+          className={controlClass}
         />
-      </div>
+      </Field>
 
       {/* Row 3: Pet name + Pet type */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div className="flex flex-col gap-1.5">
-          <label htmlFor="pet_name" className="text-sm font-semibold text-brand-navy">
-            Nombre de tu mascota <span aria-hidden="true" className="text-red-500">*</span>
-          </label>
-          <input
+        <Field id="pet_name" label="Nombre de tu mascota">
+          <Input
             id="pet_name"
             name="pet_name"
             type="text"
             required
             placeholder="Luna"
             aria-required="true"
-            className="rounded-xl border border-slate-300 px-4 py-2.5 text-sm text-brand-navy placeholder-brand-slate/60 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent"
+            className={controlClass}
           />
-        </div>
-        <div className="flex flex-col gap-1.5">
-          <label htmlFor="pet_type" className="text-sm font-semibold text-brand-navy">
-            Tipo de mascota <span aria-hidden="true" className="text-red-500">*</span>
-          </label>
-          <select
-            id="pet_type"
-            name="pet_type"
-            required
-            aria-required="true"
-            defaultValue=""
-            className="rounded-xl border border-slate-300 px-4 py-2.5 text-sm text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent bg-white"
-          >
-            <option value="" disabled>Selecciona…</option>
-            {petTypeOptions.map((opt) => (
-              <option key={opt} value={opt}>{opt}</option>
-            ))}
-          </select>
-        </div>
+        </Field>
+        <SelectField
+          id="pet_type"
+          label="Tipo de mascota"
+          placeholder="Selecciona…"
+          options={petTypeOptions.map((opt) => ({ value: opt, label: opt }))}
+        />
       </div>
 
       {/* Row 4: Service */}
-      <div className="flex flex-col gap-1.5">
-        <label htmlFor="service" className="text-sm font-semibold text-brand-navy">
-          Servicio de interés <span aria-hidden="true" className="text-red-500">*</span>
-        </label>
-        <select
-          id="service"
-          name="service"
-          required
-          aria-required="true"
-          defaultValue=""
-          className="rounded-xl border border-slate-300 px-4 py-2.5 text-sm text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent bg-white"
-        >
-          <option value="" disabled>Selecciona un servicio…</option>
-          {serviceOptions.map((opt) => (
-            <option key={opt} value={opt}>{opt}</option>
-          ))}
-        </select>
-      </div>
+      <SelectField
+        id="service"
+        label="Servicio de interés"
+        placeholder="Selecciona un servicio…"
+        options={serviceOptions.map((opt) => ({ value: opt, label: opt }))}
+      />
 
       {/* Row 5: Date + Time */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div className="flex flex-col gap-1.5">
-          <label htmlFor="preferred_date" className="text-sm font-semibold text-brand-navy">
-            Fecha preferida <span aria-hidden="true" className="text-red-500">*</span>
-          </label>
-          <input
-            id="preferred_date"
-            name="preferred_date"
-            type="date"
-            required
-            min={today}
-            aria-required="true"
-            className="rounded-xl border border-slate-300 px-4 py-2.5 text-sm text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent"
-          />
-        </div>
-        <div className="flex flex-col gap-1.5">
-          <label htmlFor="preferred_time" className="text-sm font-semibold text-brand-navy">
-            Franja horaria <span aria-hidden="true" className="text-red-500">*</span>
-          </label>
-          <select
-            id="preferred_time"
-            name="preferred_time"
-            required
-            aria-required="true"
-            defaultValue=""
-            className="rounded-xl border border-slate-300 px-4 py-2.5 text-sm text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent bg-white"
-          >
-            <option value="" disabled>Selecciona…</option>
-            {timeOptions.map((opt) => (
-              <option key={opt.value} value={opt.value}>{opt.label}</option>
-            ))}
-          </select>
-        </div>
+        <DatePickerField id="preferred_date" label="Fecha preferida" />
+        <SelectField
+          id="preferred_time"
+          label="Franja horaria"
+          placeholder="Selecciona…"
+          options={timeOptions}
+        />
       </div>
 
       {/* Row 6: Message (optional) */}
-      <div className="flex flex-col gap-1.5">
-        <label htmlFor="message" className="text-sm font-semibold text-brand-navy">
-          Motivo de la consulta <span className="text-brand-slate font-normal">(opcional)</span>
-        </label>
-        <textarea
+      <Field id="message" label="Motivo de la consulta" required={false}>
+        <Textarea
           id="message"
           name="message"
           rows={4}
           maxLength={500}
           placeholder="Describe brevemente el motivo de la visita…"
-          className="rounded-xl border border-slate-300 px-4 py-2.5 text-sm text-brand-navy placeholder-brand-slate/60 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent resize-none"
+          className="rounded-md bg-white px-4 py-2.5 resize-none"
         />
+      </Field>
+
+      {/* Privacy consent (RGPD) */}
+      <div className="flex flex-col gap-2">
+        <div className="flex items-start gap-3">
+          <Checkbox
+            id="privacy"
+            name="privacy_accepted"
+            value="Sí"
+            checked={privacyAccepted}
+            onCheckedChange={(checked) => {
+              const accepted = checked === true;
+              setPrivacyAccepted(accepted);
+              if (accepted) setPrivacyError(false);
+            }}
+            required
+            aria-required="true"
+            aria-invalid={privacyError}
+            aria-describedby={privacyError ? "privacy-error" : undefined}
+            className="mt-0.5 bg-white"
+          />
+          <Label htmlFor="privacy" className="text-sm font-normal text-brand-slate leading-relaxed">
+            <span>
+              He leído y acepto la{" "}
+              <a
+                href="/politica-privacidad"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-brand-blue underline underline-offset-2 hover:text-brand-blue-600"
+              >
+                política de privacidad
+              </a>{" "}
+              y consiento el tratamiento de mis datos para gestionar mi solicitud de cita.{" "}
+              <span aria-hidden="true" className="text-red-500">*</span>
+            </span>
+          </Label>
+        </div>
+        {privacyError && (
+          <p id="privacy-error" role="alert" className="text-sm text-red-600 pl-7">
+            Debes aceptar la política de privacidad para solicitar tu cita.
+          </p>
+        )}
+        <p className="text-xs text-brand-slate/80 leading-relaxed pl-7">
+          Responsable: MARSON VET S.L. Finalidad: atender tu solicitud de cita. Legitimación: tu
+          consentimiento. Puedes ejercer tus derechos de acceso, rectificación, supresión y otros en
+          info@almavetjerez.com. Más información en la política de privacidad.
+        </p>
       </div>
 
       {/* Submit */}
-      <button
+      <Button
         type="submit"
         disabled={isSubmitting}
-        className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-brand-blue text-white font-semibold text-sm hover:bg-brand-blue-600 transition-colors disabled:opacity-60 disabled:cursor-not-allowed shadow-sm"
+        className="h-12 w-full rounded-md text-sm font-semibold shadow-sm hover:bg-brand-blue-600"
       >
         {isSubmitting ? (
           <>
-            <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-            </svg>
+            <LoaderCircleIcon className="animate-spin" aria-hidden="true" />
             Enviando…
           </>
         ) : (
           "Solicitar cita"
         )}
-      </button>
+      </Button>
     </form>
   );
 }
