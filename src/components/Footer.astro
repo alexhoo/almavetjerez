@@ -111,13 +111,21 @@ import Icon from "./Icon.astro";
       class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/50"
     >
       <p>{site.footer.copyright}</p>
-      <div class="flex items-center gap-6">
-        <a
-          href={site.footer.privacy.href}
-          class="underline underline-offset-2 hover:text-white transition-colors"
-        >
-          {site.footer.privacy.label}
-        </a>
+      <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-6">
+        <ul class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+          {
+            site.footer.legalLinks.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="underline underline-offset-2 hover:text-white transition-colors"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
         <p>{site.footer.tagline}</p>
       </div>
     </div>

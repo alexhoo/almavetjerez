@@ -23,6 +23,15 @@ export const site = {
       ranges: ["11:00 – 13:30"],
     },
   ],
+  legal: {
+    company: "MARSON VET S.L.",
+    nif: "B24921058",
+    domain: "www.almavetjerez.com",
+    tradeName: "Almavetjerez",
+    registeredAddress: "C/ Camarón de la Isla 2 11405, Jerez de la Frontera",
+    rightsAddress:
+      "C/ Camarón de la Isla, Urb. Nuevo Chapín Fase 2, 2. Local 3, - 11405 Jerez de la Frontera (Cádiz)",
+  },
   social: {
     // TODO: confirm real Facebook URL
     facebook: "https://facebook.com/almavetjerez",
@@ -99,7 +108,11 @@ export const site = {
       { label: "Horario y ubicación", href: "#ubicacion" },
       { label: "Pedir cita online", href: "/reservar" },
     ],
-    privacy: { label: "Política de privacidad", href: "/politica-privacidad" },
+    legalLinks: [
+      { label: "Aviso legal", href: "/aviso-legal" },
+      { label: "Política de privacidad", href: "/politica-privacidad" },
+      { label: "Política de cookies", href: "/politica-cookies" },
+    ],
   },
 } as const;
 
