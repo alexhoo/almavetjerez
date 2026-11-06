@@ -36,8 +36,11 @@ Copy `.env.example` to `.env` and fill in values before running locally.
 
 | Variable | Description |
 |---|---|
-| `PUBLIC_WEB3FORMS_KEY` | Web3Forms access key — get one free at [web3forms.com](https://web3forms.com) |
-| `PUBLIC_SITE_URL` | Absolute site URL (e.g. `http://localhost:4321` for dev, `https://almavetjerez.com` for prod) |
+| `RESEND_API_KEY` | [Resend](https://resend.com) API key with "Sending access". Server-only secret (no `PUBLIC_` prefix). |
+| `CONTACT_TO_EMAIL` | Inbox that receives appointment requests. Defaults to `info@almavetjerez.com`. |
+| `CONTACT_FROM_EMAIL` | Sender, on a domain verified in Resend. Defaults to `Almavet Jerez Reservas <citas@almavetjerez.com>`. |
+
+The appointment form posts to `/api/cita` (`src/pages/api/cita.ts`), which validates the data and sends the email through Resend. It is the only server-rendered route; the rest of the site is static.
 
 ## Replacing placeholder images
 
@@ -86,5 +89,5 @@ public/
 1. Push to GitHub
 2. Import repo in [vercel.com](https://vercel.com)
 3. Framework preset: **Astro** (auto-detected)
-4. Set environment variables in Vercel dashboard: `PUBLIC_WEB3FORMS_KEY` and `PUBLIC_SITE_URL`
+4. Set environment variables in Vercel dashboard (Production): `RESEND_API_KEY` and, optionally, `CONTACT_TO_EMAIL` / `CONTACT_FROM_EMAIL`
 5. Deploy — Vercel will auto-detect `bun.lock` and use Bun as the package manager

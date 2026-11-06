@@ -25,6 +25,3 @@ jobs:
 
       - name: Build
         run: bun run build
-        env:
-          PUBLIC_WEB3FORMS_KEY: ${{ secrets.PUBLIC_WEB3FORMS_KEY }}
-          PUBLIC_SITE_URL: https://almavetjerez.com
