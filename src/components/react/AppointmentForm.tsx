@@ -16,24 +16,15 @@ import {
   SelectValue,
 } from "~/components/ui/select";
 import { Textarea } from "~/components/ui/textarea";
+import {
+  MESSAGE_MAX_LENGTH,
+  PRIVACY_ACCEPTED_VALUE,
+  petTypeOptions,
+  serviceOptions,
+  timeOptions,
+} from "~/lib/appointment";
 
 type SubmitStatus = "idle" | "submitting" | "error";
-
-const serviceOptions = [
-  "Consultas",
-  "Medicina Preventiva",
-  "Medicina Interna",
-  "Análisis Clínicos",
-  "Diagnóstico Imagen",
-  "Otro / No estoy seguro",
-];
-
-const petTypeOptions = ["Perro", "Gato", "Otro"];
-const timeOptions = [
-  { value: "manana", label: "Mañana (09:30 – 13:30)" },
-  { value: "tarde", label: "Tarde (17:30 – 20:30)" },
-  { value: "indistinto", label: "Sin preferencia" },
-];
 
 const controlClass = "h-11 rounded-md bg-white px-4";
 const selectTriggerClass = `${controlClass} w-full data-[size=default]:h-11`;
@@ -154,17 +145,19 @@ export function AppointmentForm() {
     const formData = new FormData(e.currentTarget);
 
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: formData,
-      });
+      const res = await fetch("/api/cita", { method: "POST", body: formData });
 
       if (res.ok) {
-        window.location.href = `${import.meta.env.PUBLIC_SITE_URL}/gracias`;
+        window.location.href = "/gracias";
       } else {
+        // The endpoint answers with `{ error }` in Spanish (which fields to fix,
+        // or a generic failure); fall back to the generic text otherwise.
+        const body: { error?: unknown } | null = await res.json().catch(() => null);
         setStatus("error");
         setErrorMsg(
-          "Hubo un problema al enviar tu solicitud. Inténtalo de nuevo o llámanos directamente."
+          typeof body?.error === "string"
+            ? body.error
+            : "Hubo un problema al enviar tu solicitud. Inténtalo de nuevo o llámanos directamente."
         );
       }
     } catch {
@@ -179,26 +172,11 @@ export function AppointmentForm() {
 
   return (
     <form
-      action="https://api.web3forms.com/submit"
-      method="POST"
       onSubmit={handleSubmit}
       className="flex flex-col gap-6"
       noValidate
     >
-      {/* Hidden Web3Forms fields */}
-      <input
-        type="hidden"
-        name="access_key"
-        value={import.meta.env.PUBLIC_WEB3FORMS_KEY}
-      />
-      <input type="hidden" name="from_name" value="Almavet Jerez Reservas" />
-      <input type="hidden" name="subject" value="Nueva solicitud de cita" />
-      <input
-        type="hidden"
-        name="redirect"
-        value={`${import.meta.env.PUBLIC_SITE_URL}/gracias`}
-      />
-      {/* Honeypot anti-spam */}
+      {/* Honeypot anti-spam: checked server-side in /api/cita */}
       <input
         type="checkbox"
         name="botcheck"
@@ -301,7 +279,7 @@ export function AppointmentForm() {
           id="message"
           name="message"
           rows={4}
-          maxLength={500}
+          maxLength={MESSAGE_MAX_LENGTH}
           placeholder="Describe brevemente el motivo de la visita…"
           className="rounded-md bg-white px-4 py-2.5 resize-none"
         />
@@ -313,7 +291,7 @@ export function AppointmentForm() {
           <Checkbox
             id="privacy"
             name="privacy_accepted"
-            value="Sí"
+            value={PRIVACY_ACCEPTED_VALUE}
             checked={privacyAccepted}
             onCheckedChange={(checked) => {
               const accepted = checked === true;
